@@ -25,36 +25,16 @@ $(document).ready(function() {
 });
 
 
+function getUrl(){
+  return "http://" + $('#userName').val() + ":" + $('#password').val() + "@localhost:8080/business-central";
+}
+
 function showApplication() {
   // Just make sure something was entered, in reality we would validate the credentials as well.
   if ($('#userName').val().length > 0 && $('#password').val().length > 0) {
     $('#credentials').hide(500); 
     $('#applicationForm').show(500);
   }
-}
-
-function getUrl(){
-  return "http://" + $('#userName').val() + ":" + $('#password').val() + "@localhost:8080/business-central";
-}
-
-function getApplications() {
-	getTaskList($("#userName").val());
-}
-
-function getTaskList(user){
-	$.getJSON(getUrl() + "/rest/task/query?potentialOwner="+user, taskListCB);
-}
-
-function taskListCB(taskList) {
-	var tasks = taskList.taskSummaryList;
-	$('#taskListTable').bootstrapTable('load', tasks);
-	
-	if (tasks != null && tasks.length > 0) {
-	  $('#credentials').hide(500);
-		$('#tasksPanel').show(500);
-	} else {
-		$('#tasksPanel').hide(500);
-	}
 }
 
 function apply(){  
@@ -80,8 +60,28 @@ function apply(){
   
 }
 
+function getApplications() {
+	getTaskList($("#userName").val());
+}
+
+function getTaskList(user){
+	$.getJSON(getUrl() + "/rest/task/query?potentialOwner="+user, taskListCB);
+}
+
+function taskListCB(taskList) {
+	var tasks = taskList.taskSummaryList;
+	$('#taskListTable').bootstrapTable('load', tasks);
+	
+	if (tasks != null && tasks.length > 0) {
+	  $('#credentials').hide(500);
+		$('#tasksPanel').show(500);
+	} else {
+		$('#tasksPanel').hide(500);
+	}
+}
+
 function dateFormatter(value) {
-    return  new Date(value).toString();
+  return  new Date(value).toString();
 }
 
 function startReview(row) {
@@ -92,10 +92,10 @@ function startReview(row) {
 	$('#taskId').val(row.id);
 	
 	// Claim the task  
-	$.post(getUrl() + "/rest/task/"+row.id+"/claim","",function(){console.log("Successfully claimed task");});
+	$.post(getUrl() + "/rest/task/" + row.id + "/claim","",function(){console.log("Successfully claimed task");});
 	    
   // Start the task
-	$.post(getUrl() + "/rest/task/"+row.id+"/start","",function(){console.log("Successfully started task");});
+	$.post(getUrl() + "/rest/task/" + row.id + "/start","",function(){console.log("Successfully started task");});
 	
 	// Get the variable values
 	$.getJSON(getUrl() + "/rest/query/runtime/task?taskid=" + row.id, populateReviewFormCB);
@@ -125,7 +125,8 @@ function populateReviewFormCB(taskInfo) {
 }
 
 function saveReview() {
-  // todo $('#taskId')
+  var taskId = $('#taskId').val();
+  alert("This feature is not yet implemented");
 }
 
 function completeReview() {
