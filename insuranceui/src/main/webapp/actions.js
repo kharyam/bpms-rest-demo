@@ -39,23 +39,19 @@ function apply() {
     type : "POST",
     url : getUrl() + "/rest/runtime/com.example:insurance:1.0/process/insurance.mainProcess/start",
 
-      data: "map_pv_firstName=" + $('#firstName').val() + 
-            "&map_pv_lastName=" + $('#lastName').val() + 
-            "&map_pv_age=" + $('#age').val() + "i" +
-            "&map_pv_income=" + $('#income').val() + "i",
+    data: "map_pv_firstName=" + $('#firstName').val() + 
+          "&map_pv_lastName=" + $('#lastName').val() + 
+          "&map_pv_age=" + $('#age').val() + "i" +
+          "&map_pv_income=" + $('#income').val() + "i",
 
-      headers: {
-                "Authorization": "Basic " + btoa($('#userName').val() + ":" + $('#password').val())
-              },
+    headers: {"Authorization": "Basic " + btoa($('#userName').val() + ":" + $('#password').val())},
             
-      success : function (data,status) {
-              $('#applicationForm').hide(500);
-              $('#thankYouForm').show(500);
-            },
+    success : function (data,status) {
+            $('#applicationForm').hide(500);
+            $('#thankYouForm').show(500);
+          },
 
-      error : function (data,status) {
-              alert("Something went wrong, try again later. (status = " + status);
-            }
+    error : function (data,status) {alert("Something went wrong, try again later. (status = " + status);}
       
   });
   
