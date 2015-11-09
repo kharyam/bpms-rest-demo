@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.manager.RuntimeEngine;
@@ -15,7 +16,7 @@ import org.kie.api.task.TaskService;
 import org.kie.api.task.model.TaskSummary;
 import org.kie.services.client.api.RemoteRuntimeEngineFactory;
 
-public class BpmsJavaRestExample {
+public class BpmsJavaRemoteExample {
 
   private static final String DEPLOYMENT_ID = "com.example:insurance:1.0";
   private static final String APP_URL = "http://localhost:8080/business-central/";
@@ -54,13 +55,18 @@ public class BpmsJavaRestExample {
   }
 
   public static void main(String args[]) {
-    BpmsJavaRestExample example = new BpmsJavaRestExample();
+    BpmsJavaRemoteExample example = new BpmsJavaRemoteExample();
     long pid = example.startProcess();
-    List<TaskSummary> tasks = example.taskService.getTasksAssignedAsPotentialOwner("bob", "EN_UK");
+    List<TaskSummary> tasks = example.taskService.getTasksAssignedAsPotentialOwner(USER, "EN_UK");
 
     System.out.println("Claimable processes:");
     for (TaskSummary summary : tasks) {
       System.out.println(summary.getName());
+      Map<String, Object> content = example.taskService.getTaskContent(summary.getId());
+      Set<String> keys = content.keySet();
+      for (String key : keys) {
+        System.out.println("\t"+key + " => " + content.get(key));
+      }
     }
     
     example.ksession.signalEvent("Task A",null, pid);
@@ -69,7 +75,7 @@ public class BpmsJavaRestExample {
     
     System.out.println("\nStarted Nodes:");
     for (NodeInstanceLog node : completedNodes) {
-      System.out.println(node.getNodeId() + " - " + node.getNodeName());
+      System.out.println(node.getNodeId() + " - " + node.getNodeName() + " - " + node.getNodeType() + " - " + node.getType());
     }
     
   }
