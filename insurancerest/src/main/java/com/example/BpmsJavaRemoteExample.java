@@ -17,7 +17,7 @@ import org.kie.api.task.model.TaskSummary;
 import org.kie.services.client.api.RemoteRuntimeEngineFactory;
 
 /**
- * A class demonstrating the use of the BPMS Remote Jav (REST) API
+ * A class demonstrating the use of the BPMS Remote Java (REST) API
  *
  */
 public class BpmsJavaRemoteExample {
