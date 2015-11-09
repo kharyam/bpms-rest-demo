@@ -1,15 +1,43 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.redhat</groupId>
-	<artifactId>insurancerest</artifactId>
-	<version>1.0</version>
-	<name>insurance rest api</name>
-	<packaging>war</packaging>
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.redhat</groupId>
+  <artifactId>insurancerest</artifactId>
+  <version>1.0</version>
+  <name>insurance rest api</name>
+  <packaging>war</packaging>
 
-	<properties>
-		<maven.compiler.source>1.7</maven.compiler.source>
-		<maven.compiler.target>1.7</maven.compiler.target>
-	</properties>
+  <properties>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
+    <bpms.version>6.1.4.GA-redhat-2</bpms.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.jboss.bom.brms</groupId>
+        <artifactId>jboss-javaee-6.0-with-brms-bpmsuite</artifactId>
+        <version>${bpms.version}</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+<!--     <dependency> -->
+<!--       <groupId>org.jbpm</groupId> -->
+<!--       <artifactId>jbpm-services-api</artifactId> -->
+<!--     </dependency> -->
+<!--     <dependency> -->
+<!--       <groupId>org.jbpm</groupId> -->
+<!--       <artifactId>jbpm-kie-services</artifactId> -->
+<!--     </dependency> -->
+    <dependency>
+      <groupId>org.kie.remote</groupId>
+      <artifactId>kie-remote-client</artifactId>
+    </dependency>
+  </dependencies>
 
 </project>
