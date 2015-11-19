@@ -202,7 +202,7 @@ function signal(source) {
 		type : "POST",
 		url : getUrl() + "/rest/runtime/com.example:insurance:1.0/process/instance/" + $('#processInstanceId').val() + "/signal?signal=" + source, 
 		headers: {"Authorization": "Basic " + btoa($('#userName').val() + ":" + $('#password').val())},
-		success : function (data,status) {alert("Successfully signalled " + source);},
+		success : function (data,status) {console.log("Successfully signalled " + source);},
 		error : function (data,status) {alert("Failed to signal " + source + " (status = " + status + ")");}
 	});  
 }
