@@ -18,6 +18,8 @@ $(document).ready(function() {
   $("#save").click(saveReview);
 
   $("#complete").click(completeReview);
+  
+  $("button[name='refresh']").click(getApplications);
 
 });
 
@@ -75,13 +77,8 @@ function getTaskList(user){
 function taskListCB(taskList) {
 	var tasks = taskList.taskSummaryList;
 	$('#taskListTable').bootstrapTable('load', tasks);
-	
-	if (tasks != null && tasks.length > 0) {
-	  $('#credentials').hide(500);
-		$('#tasksPanel').show(500);
-	} else {
-		$('#tasksPanel').hide(500);
-	}
+  $('#credentials').hide(500);
+	$('#tasksPanel').show(500);
 }
 
 function dateFormatter(value) {
